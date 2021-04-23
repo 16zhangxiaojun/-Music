@@ -15,6 +15,7 @@
     "better-scroll": "^1.15.1",
     "core-js": "^2.6.5",
     "create-keyframe-animation": "^0.1.0",
+    "element-ui": "^2.15.1",
     "fastclick": "^1.0.6",
     "github-webhook-handler": "^1.0.0",
     "good-storage": "^1.0.1",

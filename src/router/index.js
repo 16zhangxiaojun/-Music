@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-
+const Login = () => import('components/login/login')
 const Recommend = () => import('components/recommend/recommend')
 const Singer = () => import('components/singer/singer')
 const Rank = () => import('components/rank/rank')
@@ -16,7 +16,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/recommend'
+      redirect: '/login'
+    },
+    {
+      path: '/login',
+      component: Login
     },
     {
       path: '/recommend',

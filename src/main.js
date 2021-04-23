@@ -6,6 +6,7 @@ import router from './router'
 import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
+import ElementUI from 'element-ui'
 // import { SET_PLAY_HISTORY, SET_FAVORITE_LIST } from './store/mutation-types'
 // import { loadPlay, loadFavorite } from 'common/js/cache'
 // import { processSongsUrl } from 'common/js/song'
@@ -17,6 +18,7 @@ import 'common/stylus/index.styl'
 
 fastclick.attach(document.body)
 
+Vue.use(ElementUI)
 Vue.use(VueLazyload, {
   loading: require('common/image/loading.gif')
 })
