@@ -39,11 +39,13 @@ export default {
       users: [
         {
           user: 'pengjing',
-          pass: '123456'
+          pass: '123456',
+          toke: 'BhfjRHziZDyitgcc'
         },
         {
           user: 'admin',
-          pass: 'admin'
+          pass: 'admin',
+          toke: 'Fg2S7DckCIOIyxZC'
         }
       ],
       form: {
@@ -69,7 +71,13 @@ export default {
         if (valid) {
           console.log(valid)
           let result = this.users.some((item) => (item.user === this.form.user && item.pass === this.form.pass))
-          result ? this.$router.push('/recommend') : alert('不存在此用户!')
+          if (result) {
+            const finduser = this.users.find((item) => item.users === this.form.users)
+            window.sessionStorage.setItem('token', finduser.toke)
+            this.$router.push('/recommend')
+          } else {
+            alert('不存在此用户!')
+          }
         } else {
           console.log('error submit!!')
           return false
