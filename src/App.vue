@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <m-header v-if="Urlflag != '/login'"></m-header>
-    <tab v-if="Urlflag != '/login'"></tab>
+    <m-header v-if="Urlflag"></m-header>
+    <tab v-if="Urlflag"></tab>
     <keep-alive><router-view></router-view></keep-alive>
-    <player v-if="Urlflag != '/login'"></player>
+    <player v-if="Urlflag"></player>
   </div>
 </template>
 
@@ -27,7 +27,12 @@ export default {
   },
   methods: {
     Url () {
-      this.Urlflag = this.$route.path
+      const tempUrl = this.$route.path
+      if (tempUrl === '/login' || tempUrl === '/register') {
+        this.Urlflag = false
+      } else {
+        this.Urlflag = !this.Urlflag
+      }
       console.log(this.$route.path)
     }
   }

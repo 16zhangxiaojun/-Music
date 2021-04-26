@@ -1,20 +1,21 @@
+/* eslint-disable no-unused-expressions */
 <template>
-  <div class="Loginfroms">
+  <div class="Registerfroms">
     <el-form
       class="Elfrom"
       :rules="Elfromrules"
-      ref="Loginform"
+      ref="Registerform"
       :model="form"
       label-width="auto"
     >
-      <el-form-item class="Input_css" label="账号:" prop="user">
+      <el-form-item class="Input_css" label="注册账号:" prop="user">
         <el-input
           placeholder="用户名称"
           id="user"
           v-model="form.user"
         ></el-input>
       </el-form-item>
-      <el-form-item class="Input_css" label="密码:" prop="pass">
+      <el-form-item class="Input_css" label="注册密码:" prop="pass">
         <el-input
           placeholder="用户密码"
           type="password"
@@ -23,13 +24,17 @@
         ></el-input>
       </el-form-item>
       <el-form-item class="button_css">
-        <el-button style="margin-right: 1em" @click="Submitlogin"
-          >登陆
-        </el-button>
         <el-button style="margin-right: 1em">
-          <router-link tag="span" class="Linkcss" to="/register"
-            >注册</router-link
+          <router-link
+            tag="span"
+            class="Linkcss"
+            to="/login"
+            @click.native="refresh"
+            >登陆</router-link
           >
+        </el-button>
+        <el-button style="margin-right: 1em" @click="Register_now">
+          立即注册
         </el-button>
         <el-button @click="Restlogin">重置</el-button>
       </el-form-item>
@@ -38,13 +43,11 @@
 </template>
 <script>
 export default {
-  created () {
-    this.getUser()
-  },
   data () {
     return {
-      // 可登录用户
-      users: [],
+      str: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+      users: [], // 可登录用户
+      compareArry: [], // 临时存储用户数组
       form: {
         user: '',
         pass: ''
@@ -62,32 +65,33 @@ export default {
     }
   },
   methods: {
-    getUser () {
-      let usersResult = window.sessionStorage.getItem('usersList')
-      if (usersResult) {
-        this.users = JSON.parse(usersResult)
-      } else {
-        this.users = []
+    generateMixed (n) {
+      var res = ''
+      for (var i = 0; i < n; i++) {
+        var id = Math.ceil(Math.random() * 35)
+        res += this.str[id]
       }
-      console.log(this.users)
+    //   console.log(res)
+      return res
     },
-    Submitlogin () {
-      console.log(this.$refs.Loginform.validate())
-      this.$refs.Loginform.validate(async (valid) => {
+    Register_now () {
+      console.log(this.form)
+      this.$refs.Registerform.validate(async (valid) => {
         if (valid) {
           console.log(valid)
           if (this.users.length !== 0) {
-            let result = await this.users.some((item) => (item.user === this.form.user && item.pass === this.form.pass))
-            if (result) {
-              const finduser = this.users.find((item) => item.users === this.form.users)
-              window.sessionStorage.setItem('token', JSON.stringify(finduser.token))
-              this.$router.push('/recommend')
+            console.log('valid')
+            this.compareArry = [...this.users]
+            let checkValue = await this.compareArry.some((item) => { return item.user === this.form.user })
+            if (checkValue) {
+              alert('用户名重复！')
+              return false
             } else {
-              alert('不存在此用户!')
+              this.checkRepeat()
             }
+            console.log(this.users)
           } else {
-            alert('暂无用户信息，请注册！')
-            this.$router.push('/register')
+            this.checkRepeat()
           }
         } else {
           console.log('error submit!!')
@@ -95,8 +99,22 @@ export default {
         }
       })
     },
+    checkRepeat () {
+      this.users.push({
+        user: this.form.user,
+        pass: this.form.pass,
+        token: this.generateMixed(12)
+      })
+      let sessionUers = this.users
+      window.sessionStorage.setItem('usersList', JSON.stringify(sessionUers))
+      console.log(this.users)
+      alert('注册成功！')
+    },
     Restlogin () {
-      this.$refs.Loginform.resetFields()
+      this.$refs.Registerform.resetFields()
+    },
+    refresh () {
+      this.$router.go(0)
     }
   }
 }
@@ -104,11 +122,11 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import '~common/stylus/variable';
 
-.Loginfroms {
+.Registerfroms {
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  background-color: #011F3E;
+  background-color: #23A7F2;
   padding: 1em;
   top: 50%;
   transform: translate(0, 100%);
