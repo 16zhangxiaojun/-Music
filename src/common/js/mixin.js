@@ -64,8 +64,10 @@ export const playerMixin = {
     toggleFavorite (song) {
       if (this.isFavorite(song)) {
         this.deleteFavoriteList(song)
-      } else {
+      } else if (window.sessionStorage.getItem('token')) { // 判断是否有用户登陆，如果有则可以添加收藏；如果无便跳转到登陆页
         this.saveFavoriteList(song)
+      } else {
+        this.$router.push({ path: '/login' })
       }
     },
     getFavoriteIcon (song) {
