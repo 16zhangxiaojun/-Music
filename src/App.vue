@@ -2,7 +2,9 @@
   <div id="app">
     <m-header v-if="Urlflag"></m-header>
     <tab v-if="Urlflag"></tab>
-    <keep-alive><router-view></router-view></keep-alive>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <player v-if="Urlflag"></player>
   </div>
 </template>
