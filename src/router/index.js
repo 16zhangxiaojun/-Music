@@ -17,7 +17,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/recommend'
     },
     {
       path: '/login',
@@ -74,15 +74,16 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  // to 将要访问的路径
-  // from 当前导航正要离开的路由
-  // next 是一个函数，表示放行
-  // next() 放行 next('login') 强制跳转
-  if (to.path === '/login' || to.path === '/register') return next()
-  // 获取token
-  const tokenStr = window.sessionStorage.getItem('token')
-  if (!tokenStr) return next('/login')
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   // to 将要访问的路径
+//   // from 当前导航正要离开的路由
+//   // next 是一个函数，表示放行
+//   // next() 放行 next('login') 强制跳转
+// ================ 满足类似于QQ/网易云形式的免登录听歌功能，所以要关闭路由守卫功能===============
+//   if (to.path === '/login' || to.path === '/register') return next()
+//   // 获取token
+//   const tokenStr = window.sessionStorage.getItem('token')
+//   if (!tokenStr) return next('/login')
+//   next()
+// })
 export default router

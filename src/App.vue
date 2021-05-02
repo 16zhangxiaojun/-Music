@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      Urlflag: ''
+      Urlflag: false
     }
   },
   components: {
@@ -31,7 +31,7 @@ export default {
       if (tempUrl === '/login' || tempUrl === '/register') {
         this.Urlflag = false
       } else {
-        this.Urlflag = !this.Urlflag
+        this.Urlflag = true
       }
       console.log(this.$route.path)
     }
