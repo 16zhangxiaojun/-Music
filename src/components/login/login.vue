@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     getUser () {
-      let usersResult = window.sessionStorage.getItem('usersList')
+      let usersResult = window.localStorage.getItem('usersList')
       if (usersResult) {
         this.users = JSON.parse(usersResult)
       } else {
@@ -80,7 +80,7 @@ export default {
             let result = await this.users.some((item) => (item.user === this.form.user && item.pass === this.form.pass))
             if (result) {
               const finduser = this.users.find((item) => item.users === this.form.users)
-              window.sessionStorage.setItem('token', JSON.stringify(finduser.token))
+              window.localStorage.setItem('token', JSON.stringify(finduser.token))
               this.$router.push('/recommend')
             } else {
               alert('不存在此用户!')

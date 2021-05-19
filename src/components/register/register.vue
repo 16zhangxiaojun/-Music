@@ -106,7 +106,7 @@ export default {
         token: this.generateMixed(12)
       })
       let sessionUers = this.users
-      window.sessionStorage.setItem('usersList', JSON.stringify(sessionUers))
+      window.localStorage.setItem('usersList', JSON.stringify(sessionUers))
       console.log(this.users)
       alert('注册成功！')
     },

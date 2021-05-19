@@ -14,8 +14,8 @@ export default {
 
   methods: {
     signOut () {
-      // window.sessionStorage.clear('token') 清除全部存储数据
-      window.sessionStorage.removeItem('token') // 清除指定数据
+      // window.localStorage.clear('token') 清除全部存储数据
+      window.localStorage.removeItem('token') // 清除指定数据
       this.$router.push('/login')
     }
   }
